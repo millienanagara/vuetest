@@ -11,24 +11,24 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-Vue.use(VueRouter);
+// Vue.use(VueRouter);
 
 import NavBar from "./components/NavBar.vue";
 import OrderConfirm from "./components/OrderConfirm.vue";
 import Catalog from "./components/Catalog.vue";
 
-const routes = [
-  { path: "/orderconfirm", component: OrderConfirm },
-  { path: "/catalog", component: Catalog }
-];
+// const routes = [
+//   { path: "/orderconfirm", component: OrderConfirm },
+//   { path: "/catalog", component: Catalog }
+// ];
 
-const router = new VueRouter({
-  routes
-});
+// const router = new VueRouter({
+//   routes
+// });
 
-new Vue({
-  router
-}).$mount("#app");
+// new Vue({
+//   router
+// }).$mount("#app");
 
 export default {
   name: "app",
