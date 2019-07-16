@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <ProductShow @add-to-cart="updateCart"></ProductShow>
+  <div class="container">
+    <ProductShow :brand="brand" :product="product" :products="products" @add-to-cart="updateCart"></ProductShow>
     <div class="mt-3">
       <p>Cart({{cart.length}})</p>
       <h2>Order Confirmation</h2>
@@ -24,6 +24,17 @@ export default {
   name: "OrderConfirm",
   components: {
     ProductShow
+  },
+  props: {
+    brand: {
+      type: String,
+      required: true
+    },
+    product: {
+      type: String,
+      required: true
+    },
+    products: Array
   },
   data() {
     return {

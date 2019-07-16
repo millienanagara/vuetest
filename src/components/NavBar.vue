@@ -22,13 +22,13 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="navbar-nav ml-auto align-items-center">
         <li class="nav-item">
-          <router-link class="nav-link color-white" to="/home">HOME</router-link>
+          <router-link class="nav-link color-white" to="/">HOME</router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link color-white" to="/catalog">CATALOG</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link color-white" to="/koi">KOI</router-link>
+          <router-link class="nav-link color-white" to="/orderconfirm">YOUR ORDERS</router-link>
         </li>
         <li class="nav-item">
           <div class="border-right mx-2 color-white"></div>
@@ -42,11 +42,6 @@
 </template>
 
 <script>
-import Vue from "vue";
-import VueRouter from "vue-router";
-
-Vue.use(VueRouter);
-
 export default {
   name: "NavBar"
 };

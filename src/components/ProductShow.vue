@@ -1,5 +1,5 @@
 <template>
-  <div id="product">
+  <div id="product" class="container">
     <div class="row">
       <div class="col-12 col-sm-6">
         <img class="h-100 w-100" :src="image" />
@@ -66,46 +66,25 @@
 <script>
 export default {
   name: "ProductShow",
+  props: {
+      brand: {
+          type: String,
+          required: true
+      },
+      product: {
+          type: String,
+          required: true
+      },
+      products: Array
+  },
   data() {
     return {
-      brand: "Koi",
-      product: "Bubble Tea",
       inStock: true,
       selectedProduct: 0,
       sugarLevel: null,
       cupSize: null,
       toppings: null,
       errors: [],
-      products: [
-        {
-          productId: 1000,
-          productFlavor: "black",
-          productColor: "#95240e",
-          productImage: "/images/blacktea.jpg",
-          productDetails: "black tea"
-        },
-        {
-          productId: 1001,
-          productFlavor: "ovaltine",
-          productColor: "#88624f",
-          productImage: "/images/ovaltinetea.jpg",
-          productDetails: "ovaltine tea"
-        },
-        {
-          productId: 1002,
-          productFlavor: "milk",
-          productColor: "#d9c6af",
-          productImage: "/images/milktea.jpg",
-          productDetails: "milk tea"
-        },
-        {
-          productId: 1003,
-          productFlavor: "jasmine",
-          productColor: "#f2b305",
-          productImage: "/images/jasminetea.jpg",
-          productDetails: "jasmine tea"
-        }
-      ]
     };
   },
   methods: {
