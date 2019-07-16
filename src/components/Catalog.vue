@@ -2,7 +2,7 @@
   <div id="catalog" class="container">
     <h2>KOI</h2>
     <div class="row">
-      <div v-for="tea in teaKoi" :key="tea" class="col-12 col-sm-4">
+      <div v-for="tea in teaKoi" v-bind:key="tea.id" class="col-12 col-sm-4">
         <router-link :to="tea.teaRoute">
           <div class="card m-4">
             <img class="img-height" :src="tea.teaImage" />
@@ -24,6 +24,7 @@ export default {
       teaBrand: ["KOI", "KAMU"],
       teaKoi: [
         {
+          id: 1,
           teaType: "Macchiato",
           teaImage: "/images/blackmac.jpg",
           teaRoute: "/orderkoimacchiato"
@@ -34,6 +35,7 @@ export default {
           teaRoute: "/orderkoibubble"
         },
         {
+          id: 2,
           teaType: "Latte",
           teaImage: "/images/blacklatte.jpg",
           teaRoute: "/orderkoilatte"
@@ -41,16 +43,19 @@ export default {
       ],
       teaKamu: [
         {
+          id: 3,
           teaType: "Macchiato",
           teaImage: "/images/blackmac.jpg",
           teaRoute: "/orderconfirm"
         },
         {
+          id: 4,
           teaType: "Bubble Tea",
           teaImage: "/images/blacktea.jpg",
           teaRoute: "/orderconfirm"
         },
         {
+          id: 5,
           teaType: "Latte",
           teaImage: "/images/blacklatte.jpg",
           teaRoute: "/orderconfirm"
