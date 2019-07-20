@@ -28,7 +28,7 @@
           <router-link class="nav-link color-white" to="/catalog">CATALOG</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link color-white" to="/orderconfirm">YOUR ORDERS</router-link>
+          <router-link class="nav-link color-white" to="/confirmation">YOUR ORDERS</router-link>
         </li>
         <li class="nav-item">
           <div class="border-right mx-2 color-white"></div>

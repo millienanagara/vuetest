@@ -22,12 +22,12 @@
 
         <div
           class="color-box"
-          v-for="(product, index) in {{ productRoutes }}.products"
+          v-for="(product, index) in productRoutes.products"
           :key="product.productId"
           :style="{ backgroundColor: product.productColor }"
           @mouseover="updateProduct(index)"
         ></div>
-
+    
         <p>
           <label for="sugarLevel">Sugar Level:</label>
           <select id="sugarLevel" v-model="sugarLevel">
@@ -67,7 +67,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 export default {
   name: "ProductShow",
 //   props: {
@@ -84,8 +83,8 @@ export default {
   data() {
     return {
       inStock: true,
-      selectedProduct: 0,
       sugarLevel: null,
+      selectedProduct: 0,
       cupSize: null,
       toppings: null,
       errors: [],
@@ -96,14 +95,14 @@ export default {
     addToCart() {
       if (this.sugarLevel && this.cupSize && this.toppings) {
         let orderConfirmation = {
-          productId: this.products[this.selectedProduct].productId,
+          productId: this.productRoutes.products[this.selectedProduct].productId,
           sugarLevel: this.sugarLevel,
           cupSize: this.cupSize,
-          flavor: this.products[this.selectedProduct].productFlavor,
+          flavor: this.productRoutes.products[this.selectedProduct].productFlavor,
           toppings: this.toppings,
           price: this.price
         };
-        const productId = this.products[this.selectedProduct].productId
+        const productId = this.productRoutes.products[this.selectedProduct].productId
         const payload = {
             orderConfirmation,
             productId
@@ -126,36 +125,53 @@ export default {
     },
     updateProduct(index) {
       this.selectedProduct = index;
-    },
-    updatePrice() {
-        if(this.cupSize === 'S' && this.product === 'Bubble Tea') {
-            this.price = this.products[this.selectedProduct].priceS
-        } else if(this.cupSize === 'M' && this.product === 'Bubble Tea') {
-            this.price = this.products[this.selectedProduct].priceM
-        } else if(this.cupSize === 'S' && this.product === 'Macchiato') {
-            this.price = this.products[this.selectedProduct].priceS
-        } else if(this.cupSize === 'M' && this.product === 'Macchiato') {
-            this.price = this.products[this.selectedProduct].priceM
-        } else if(this.cupSize ==='S' && this.product === 'Latte') {
-            this.price = this.products[this.selectedProduct].priceS
-        } else {
-            this.price = this.products[this.selectedProduct].priceM
-        }
     }
   },
   computed: {
     title() {
-      return this.brand + " " + this.product;
+        if (this.$route.params.teaname === "teakoibubble") {
+            return this.$store.state.teaKoiBubble.brand + " " + this.$store.state.teaKoiBubble.product;
+        } else if (this.$route.params.teaname === "teakoimacchiato") {
+            return this.$store.state.teaKoiMacchiato.brand + " " + this.$store.state.teaKoiMacchiato.product;
+        } else if (this.$route.params.teaname === "teakoilatte") {
+            return this.$store.state.teaKoiLatte.brand + " " + this.$store.state.teaKoiLatte.product;
+        } else {
+            return null;
+        }
     },
     image() {
-      return this.products[this.selectedProduct].productImage;
+        if (this.$route.params.teaname === "teakoibubble") {
+            return this.$store.state.teaKoiBubble.products[this.selectedProduct].productImage;
+        } else if (this.$route.params.teaname === "teakoimacchiato") {
+            return this.$store.state.teaKoiMacchiato.products[this.selectedProduct].productImage;
+        } else if (this.$route.params.teaname === "teakoilatte") {
+            return this.$store.state.teaKoiLatte.products[this.selectedProduct].productImage;
+        } else {
+            return null;
+        }
     },
     detail() {
-      return this.products[this.selectedProduct].productDetails;
+        if (this.$route.params.teaname === "teakoibubble") {
+            return this.$store.state.teaKoiBubble.products[this.selectedProduct].productDetails;
+        } else if (this.$route.params.teaname === "teakoimacchiato") {
+            return this.$store.state.teaKoiMacchiato.products[this.selectedProduct].productDetails;
+        } else if (this.$route.params.teaname === "teakoilatte") {
+            return this.$store.state.teaKoiLatte.products[this.selectedProduct].productDetails;
+        } else {
+            return null;
+        }
     },
-    ...mapGetters([
-        'productRoutes'
-    ])
+    productRoutes() {
+        if (this.$route.params.teaname === "teakoibubble") {
+            return this.$store.state.teaKoiBubble;
+        } else if (this.$route.params.teaname === "teakoimacchiato") {
+            return this.$store.state.teaKoiMacchiato;
+        } else if (this.$route.params.teaname === "teakoilatte") {
+            return this.$store.state.teaKoiLatte;
+        } else {
+            return null;
+        }
+    }
   }
 };
 </script>
