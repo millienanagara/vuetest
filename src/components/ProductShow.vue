@@ -22,7 +22,7 @@
 
         <div
           class="color-box"
-          v-for="(product, index) in products"
+          v-for="(product, index) in {{ productRoutes }}.products"
           :key="product.productId"
           :style="{ backgroundColor: product.productColor }"
           @mouseover="updateProduct(index)"
@@ -44,7 +44,6 @@
           <select id="cupSize" v-model="cupSize">
             <option>S</option>
             <option>M</option>
-            <option>L</option>
           </select>
         </p>
 
@@ -57,6 +56,10 @@
           </select>
         </p>
 
+        <p>
+            {{ price}}
+        </p>
+
         <button @click="addToCart">Add to cart</button>
       </div>
     </div>
@@ -64,19 +67,20 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: "ProductShow",
-  props: {
-      brand: {
-          type: String,
-          required: true
-      },
-      product: {
-          type: String,
-          required: true
-      },
-      products: Array
-  },
+//   props: {
+//       brand: {
+//           type: String,
+//           required: true
+//       },
+//       product: {
+//           type: String,
+//           required: true
+//       },
+//       products: Array
+//   },
   data() {
     return {
       inStock: true,
@@ -85,6 +89,7 @@ export default {
       cupSize: null,
       toppings: null,
       errors: [],
+      price: null
     };
   },
   methods: {
@@ -95,13 +100,15 @@ export default {
           sugarLevel: this.sugarLevel,
           cupSize: this.cupSize,
           flavor: this.products[this.selectedProduct].productFlavor,
-          toppings: this.toppings
+          toppings: this.toppings,
+          price: this.price
         };
-        this.$emit(
-          "add-to-cart",
-          this.products[this.selectedProduct].productId,
-          orderConfirmation
-        );
+        const productId = this.products[this.selectedProduct].productId
+        const payload = {
+            orderConfirmation,
+            productId
+        }
+        this.$store.dispatch('addToCart', payload);
         this.sugarLevel = null;
         this.cupSize = null;
         this.toppings = null;
@@ -119,6 +126,21 @@ export default {
     },
     updateProduct(index) {
       this.selectedProduct = index;
+    },
+    updatePrice() {
+        if(this.cupSize === 'S' && this.product === 'Bubble Tea') {
+            this.price = this.products[this.selectedProduct].priceS
+        } else if(this.cupSize === 'M' && this.product === 'Bubble Tea') {
+            this.price = this.products[this.selectedProduct].priceM
+        } else if(this.cupSize === 'S' && this.product === 'Macchiato') {
+            this.price = this.products[this.selectedProduct].priceS
+        } else if(this.cupSize === 'M' && this.product === 'Macchiato') {
+            this.price = this.products[this.selectedProduct].priceM
+        } else if(this.cupSize ==='S' && this.product === 'Latte') {
+            this.price = this.products[this.selectedProduct].priceS
+        } else {
+            this.price = this.products[this.selectedProduct].priceM
+        }
     }
   },
   computed: {
@@ -130,7 +152,10 @@ export default {
     },
     detail() {
       return this.products[this.selectedProduct].productDetails;
-    }
+    },
+    ...mapGetters([
+        'productRoutes'
+    ])
   }
 };
 </script>

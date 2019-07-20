@@ -1,16 +1,20 @@
 <template>
   <div class="container">
-    <ProductShow :brand="brand" :product="product" :products="products" @add-to-cart="updateCart"></ProductShow>
+    <ProductShow :brand="brand" :product="product" :products="products"></ProductShow>
     <div class="mt-3">
-      <p>Cart({{cart.length}})</p>
+      <p>Cart({{this.$store.state.cart.length}})</p>
       <h2>Order Confirmation</h2>
-      <p v-if="!orderConfirmations.length">There are no orders yet.</p>
+      <p v-if="!this.$store.state.orderConfirmations.length">There are no orders yet.</p>
       <ol>
-        <li v-for="confirmation in orderConfirmations" :key="confirmation.productId">
+        <li
+          v-for="confirmation in this.$store.state.orderConfirmations"
+          :key="confirmation.productId"
+        >
           <p>Sugar Level: {{ confirmation.sugarLevel }}</p>
           <p>Cup Size: {{ confirmation.cupSize }}</p>
           <p>Flavor: {{ confirmation.flavor }}</p>
           <p>Toppings: {{confirmation.toppings}}</p>
+          <p>Price: {{confirmation.price}}</p>
         </li>
       </ol>
     </div>
@@ -24,30 +28,18 @@ export default {
   name: "OrderConfirm",
   components: {
     ProductShow
-  },
-  props: {
-    brand: {
-      type: String,
-      required: true
-    },
-    product: {
-      type: String,
-      required: true
-    },
-    products: Array
-  },
-  data() {
-    return {
-      cart: [],
-      orderConfirmations: []
-    };
-  },
-  methods: {
-    updateCart(id, confirmation) {
-      this.cart.push(id);
-      this.orderConfirmations.push(confirmation);
-    }
   }
+  // props: {
+  //   brand: {
+  //     type: String,
+  //     required: true
+  //   },
+  //   product: {
+  //     type: String,
+  //     required: true
+  //   },
+  //   products: Array
+  // }
 };
 </script>
 
