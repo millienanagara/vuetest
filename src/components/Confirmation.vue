@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <ProductShow></ProductShow>
     <div class="mt-3">
       <p>Cart({{this.$store.state.cart.length}})</p>
       <h2>Order Confirmation</h2>
@@ -22,13 +21,7 @@
 </template>
 
 <script>
-import ProductShow from "./ProductShow.vue";
-
 export default {
-  name: "OrderConfirm",
-  components: {
-    ProductShow
-  }
+  name: "Confirmation"
 };
 </script>
-

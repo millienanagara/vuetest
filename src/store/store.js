@@ -9,6 +9,7 @@ Vue.use(Vuex);
 const state = {
   cart: [],
   orderConfirmations: [],
+  selectedProduct: 0,
   teaKoiBubble: {
     brand: "Koi",
     product: "Bubble Tea",
@@ -126,9 +127,6 @@ const mutations = {
   incrementConfirmation(state, payload) {
     state.orderConfirmations.push(payload.orderConfirmation);
   }
-  // decrementCart(state) {
-  //   state.cart.filter();
-  // }
 };
 
 const actions = {
@@ -144,15 +142,16 @@ const actions = {
 
 const getters = {
   productRoutes(state) {
-    if (this.$route.param.teaname === "teakoibubble") {
-      return state.teaKoiBubble;
-    } else if (this.$route.param.teaname === "teakoimacchiato") {
-      return state.teaKoiMacchiato;
-    } else if (this.$route.param.teaname === "teakoilatte") {
-      return state.teaKoiLatte;
-    } else {
-      return null;
-    }
+    return state.teaKoiBubble;
+  },
+  title(state) {
+    return state.teaKoiBubble.brand + " " + state.teaKoiBubble.product;
+  },
+  image(state) {
+    return state.teaKoiBubble.products[state.selectedProduct].productImage;
+  },
+  detail(state) {
+    return state.teaKoiBubble.products[state.selectedProduct].productDetails;
   }
 };
 
